@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema({
     password : {
         type : String,
         minlength : 5,
-        maxlength : 50
+        maxlength : 128
     },
     lastname : {
         type : String,
@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
     },
     image : String,
     token : {
-        tyep : String
+        type : String
     },
     tokenExp : {
         type : Number
@@ -68,18 +68,15 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 userSchema.methods.generateToken = function(cb){
     //jwt 사용해서 웹 토큰 생성
-
     var user = this;
-
     var token = jwt.sign(user._id.toHexString(), 'secretToken')
 
     user.token = token;
-    user.save(function(err, user){
+    user.save(function (err, user) {
         if(err) return cb(err);
         cb(null, user);
-    })
-    
-}
+    });
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = {User};

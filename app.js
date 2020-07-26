@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 //application/json
 app.use(bodyParser.json());
-app.use(cookieParser)
+app.use(cookieParser())
 
 mongoose.connect(config.mongoURI, {
 	useCreateIndex:true, useFindAndModify:false, useUnifiedTopology: true, useNewUrlParser:true
@@ -41,6 +41,7 @@ app.post('/login', (req, res)=>{
 	
 	// email을 db에서 조회
 	User.findOne({email : req.body.email}, (err, userInfo) => {
+
 		if(!userInfo){
 			return res.json({
 				loginSuccess : false,
@@ -55,14 +56,15 @@ app.post('/login', (req, res)=>{
 			}
 
 			//비밀번호까지 맞으면 토큰 생성.
-			user.generateToken((err, user) => {
-				if(err) return res.status(400).send(err) 
+			userInfo.generateToken((err, user) => {
+				if(err) return res.status(400).send(err);
+
 				res.cookie("x_auth", user.token)
 				.status(200)
-				.json({loginSuccess:true, userId: user._id})
+				.json({loginSuccess:true, userId: user._id});
 			});
-
 		});
+
 	})
 
 });
