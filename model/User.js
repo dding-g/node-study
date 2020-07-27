@@ -35,6 +35,9 @@ const userSchema = mongoose.Schema({
     }
 });
 
+const User = mongoose.model('User', userSchema);
+module.exports = {User};
+
 // user 정보를 저장하기전에 어떤 작업을 한다.
 userSchema.pre('save', function (next) {
     var user = this; //위의 스키마를 가르킴
@@ -68,15 +71,45 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 userSchema.methods.generateToken = function(cb){
     //jwt 사용해서 웹 토큰 생성
+    console.log("0");
     var user = this;
+    console.log("1");
     var token = jwt.sign(user._id.toHexString(), 'secretToken')
+    console.log(token);
 
     user.token = token;
-    user.save(function (err, user) {
+
+    console.log(user.methods);
+    // user.userSchema.save().then(result => {
+    //     cb(null,user)
+    // }).catch(err => {
+    //     console.log(err)
+    //     cb(err);
+    // })
+    user.userSchema.save(function (err, user) {
+        console.log("4");
         if(err) return cb(err);
         cb(null, user);
+        console.log("5");
     });
 };
 
-const User = mongoose.model('User', userSchema);
-module.exports = {User};
+
+userSchema.statics.findByToken = function(token, cb){
+    var user = this;
+
+    //토큰을 decode
+    jwt.verify(token, 'secretToken', function(err, decoded){
+        //User._id, && token 값을 이용해 user를 찾는다.
+        //db에 찾은 데이터가 있으면 token이 일치한다는 이야기 auth OK
+        //없으면 auth No
+        user.findOne({"_id":decoded, "token":token}, function(err, userInfo){
+            if(err) return cb(err);
+            cb(null, userInfo);
+        });
+
+
+        
+    })
+}
+
