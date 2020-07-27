@@ -71,26 +71,14 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 userSchema.methods.generateToken = function(cb){
     //jwt 사용해서 웹 토큰 생성
-    console.log("0");
     var user = this;
-    console.log("1");
     var token = jwt.sign(user._id.toHexString(), 'secretToken')
-    console.log(token);
 
     user.token = token;
 
-    console.log(user.methods);
-    // user.userSchema.save().then(result => {
-    //     cb(null,user)
-    // }).catch(err => {
-    //     console.log(err)
-    //     cb(err);
-    // })
-    user.userSchema.save(function (err, user) {
-        console.log("4");
+    user.save(function (err, user) {
         if(err) return cb(err);
         cb(null, user);
-        console.log("5");
     });
 };
 
