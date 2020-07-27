@@ -21,11 +21,14 @@ mongoose.connect(config.mongoURI, {
   .catch(err => console.log(err));
 
 
-app.listen(3000, function(){
+app.listen(5000, function(){
 	console.log("start!")
 });
 
- 
+app.get('/api/hello', (req,res)=>{
+	return res.send("ㅎㅇㅎㅇㅎㅇ");
+});
+
 app.post('/api/users/register', (req, res) => {
 	const user = new User(req.body);
 
