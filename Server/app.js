@@ -49,8 +49,8 @@ app.post('/api/users/login', (req, res)=>{
 				message : "일치하는 이메일이 없습니다."
 			})
 		}
-		userInfo.token = "12312"
-		userInfo.save
+		// userInfo.token = "12312"
+		// userInfo.save
 		// email이 있다면 비밀번호 체크
 		userInfo.comparePassword(req.body.password, (err, isMatch) => {
 			if(!isMatch){

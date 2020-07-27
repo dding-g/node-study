@@ -35,8 +35,7 @@ const userSchema = mongoose.Schema({
     }
 });
 
-const User = mongoose.model('User', userSchema);
-module.exports = {User};
+
 
 // user 정보를 저장하기전에 어떤 작업을 한다.
 userSchema.pre('save', function (next) {
@@ -77,6 +76,7 @@ userSchema.methods.generateToken = function(cb){
     user.token = token;
 
     user.save(function (err, user) {
+        console.log("test")
         if(err) return cb(err);
         cb(null, user);
     });
@@ -101,3 +101,5 @@ userSchema.statics.findByToken = function(token, cb){
     })
 }
 
+const User = mongoose.model('User', userSchema);
+module.exports = {User};
