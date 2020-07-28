@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser')
 const saltRounds = 10; // salt가 몇글자 인지를 나타냄
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
     name : {
@@ -18,20 +19,9 @@ const userSchema = mongoose.Schema({
         minlength : 5,
         maxlength : 128
     },
-    lastname : {
-        type : String,
-        maxlength : 50
-    },
     role : {
         type : Number,
         default : 0
-    },
-    image : String,
-    token : {
-        type : String
-    },
-    tokenExp : {
-        type : Number
     }
 });
 
@@ -68,20 +58,13 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 };
 
-userSchema.methods.generateToken = function(cb){
-    //jwt 사용해서 웹 토큰 생성
-    var user = this;
-    var token = jwt.sign(user._id.toHexString(), 'secretToken')
-
-    user.token = token;
-
-    user.save(function (err, user) {
-        console.log("test")
-        if(err) return cb(err);
-        cb(null, user);
-    });
-};
-
+// userSchema.methods.generateToken = function(cb){
+//     //jwt 사용해서 웹 토큰 생성
+//     const user = this;
+//     var token = jwt.sign(user._id.toHexString(), 'secretToken')
+//     user.token = token;
+//     cb(user);
+// };
 
 userSchema.statics.findByToken = function(token, cb){
     var user = this;
@@ -95,9 +78,6 @@ userSchema.statics.findByToken = function(token, cb){
             if(err) return cb(err);
             cb(null, userInfo);
         });
-
-
-        
     })
 }
 
