@@ -14,7 +14,7 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage"
 function App() {
   return (
     <Router>
-      <div>
+      <div className='full-page'>
         {/*
           A <Switch> looks through all its children <Route>
           elements and renders the first one whose path

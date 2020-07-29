@@ -43,8 +43,13 @@ app.listen(5000, function(){
 	console.log("start!")
 });
 
-app.get('/api/hello', (req,res)=>{
-	return res.send("ㅎㅇㅎㅇㅎㅇ");
+app.post('/api/users/register/emailValid', (req,res) => {
+	
+	User.findOne({email:req.body.email} ,(err,userInfo) => {
+		if(err) return res.json({success:false, err})
+		else if(userInfo) return res.json({success:true, emailExist:true})
+		else return res.json({success:true, emailExist:false})
+	});
 });
 
 app.post('/api/users/register', (req, res) => {

@@ -1,11 +1,12 @@
-html, body{
-  height: 100%;
+html, body, .full-page{
+	height: 100%;
+	width:100%
 }
 
 .sing-in-body {
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
+  height:100%;
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -41,3 +42,13 @@ html, body{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.check-btn {
+	font-size:12px;
+}
+
+.left-text{
+	text-align:left
+}
+
+
