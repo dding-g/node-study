@@ -14,6 +14,8 @@ const config = require('./config/key');
 const cookieParser = require('cookie-parser')
 const cookieStore = MongoStore(session)
 
+
+
 //application/x-www-form-urlencoded 
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -79,6 +81,7 @@ app.post('/api/users/login', (req, res)=>{
 					res.cookie("sessionCookie", req.sessionID)
 					.status(200)
 					.json({loginSuccess:true, userId:userInfo._id})
+					.redirect('/')
 				})
 			}
 		});
@@ -86,7 +89,10 @@ app.post('/api/users/login', (req, res)=>{
 });
 
 app.post('/api/users/logout', auth, (req, res) => {
-
+	req.session.destroy((err) => {
+		if(err) res.json({logoutSuccess:false, err});
+		res.status(200).json({logoutSuccess:true}).redirect('/');
+	});
 });
 
 

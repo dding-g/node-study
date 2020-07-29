@@ -16,8 +16,18 @@ function LandingPage() {
 
     const onSubmitHandler = (event) => {
         event.preventDefault(); //이걸 해주면 로그인을 눌러도 refresh가 안됨
+        
+        let body = {
+            email : Email,
+            password : Password
+        };
 
-        axios.get('/api/users/login');
+        axios.post('/api/users/login', body)
+        .then(response => {
+            console.log(response)
+            if(!response.data.loginSuccess) alert(response.data.message)
+            else alert("로그인 성공")
+        });
         
     }
 
@@ -25,7 +35,7 @@ function LandingPage() {
     //     axios.get('/api/hello')
     //     .then(response => {console.log(response.data)})
     // })
-
+   
     return (
         <div className="text-center sing-in-body">
             <form className="form-signin" onSubmit={onSubmitHandler}>
@@ -37,7 +47,7 @@ function LandingPage() {
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             </form>
         </div>
-    )
+    ) 
 }
 
 export default LandingPage
