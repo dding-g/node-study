@@ -16,13 +16,18 @@
     "concurrently": "^5.2.0",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
+    "directory-tree": "^2.2.4",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.25",
     "mongoose-session": "0.0.4",
+    "multer": "^1.4.2",
     "nodemon": "^2.0.4",
     "session-file-store": "^1.4.0",
-    "uuid": "^8.3.0"
+    "unzip": "^0.1.11",
+    "uuid": "^8.3.0",
+    "yauzl": "^2.10.0"
   }
 }

@@ -1,11 +1,14 @@
 import React, {useState} from 'react'
+import {reactLocalStorage} from 'reactjs-localstorage'
+import { Redirect, useHistory, useLocation, Link } from "react-router-dom"
 import axios from 'axios'
+// import FileManagePage from '../components/views/FileManagePage/FileManagePage';
 
-function LoginPage() {
+function LoginPage(props) {
     
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState('')
-    
+	
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value);
     };
@@ -13,7 +16,7 @@ function LoginPage() {
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value);
     }
-
+	
     const onSubmitHandler = (event) => {
         event.preventDefault(); //이걸 해주면 로그인을 눌러도 refresh가 안됨
         
@@ -24,11 +27,14 @@ function LoginPage() {
 
         axios.post('/api/users/login', body)
         .then(response => {
-            console.log(response)
             if(!response.data.loginSuccess) alert(response.data.message)
-            else alert("로그인 성공")
-        });
-        
+            else{
+				alert("로그인 성공")
+				reactLocalStorage.set('email', response.data.email)
+				console.log(reactLocalStorage.get('email'))
+				props.history.push("/fileManage")
+			}
+        })
     }
 
     // const test = useEffect(() => {
@@ -46,7 +52,7 @@ function LoginPage() {
 				
 				<a href="/register">회원가입</a>
 				
-                <button className="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+                <button className="btn btn-lg btn-primary btn-block" id='btn-login' type="submit">로그인</button>
             </form>
         </div>
     ) 

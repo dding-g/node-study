@@ -5,10 +5,6 @@ const saltRounds = 10; // salt가 몇글자 인지를 나타냄
 // const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
-    name : {
-        type : String,
-        maxlength : 30
-    },
     email : {
         type : String,
         maxlength : 50,
@@ -18,10 +14,6 @@ const userSchema = mongoose.Schema({
         type : String,
         minlength : 5,
         maxlength : 128
-    },
-    role : {
-        type : Number,
-        default : 0
     }
 });
 

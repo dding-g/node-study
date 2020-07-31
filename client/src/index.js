@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
 import './css/signin.css'
+import './css/fileManage.css'
 
 
 ReactDOM.render(
