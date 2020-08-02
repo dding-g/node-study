@@ -7,6 +7,7 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import FileManagePage from './components/views/FileManagePage/FileManagePage';
 import PostEditPage from './components/views/FileManagePage/PostEditPage';
 import PostViewPage from './components/views/FileManagePage/PostViewPage';
+import ChattingPage from './components/views/ChattingPage/ChattingPage';
 import Auth from './hoc/Auth';
 
 function App() {
@@ -26,12 +27,13 @@ function App() {
           예를들어 Landingpage의 exact를 빼게 되면 login과 register 모두
           / 를 가지고 있으므로 login, register로 요청해도 Landing페이지가 보여진다
           */}
-					<Route exact path="/" component={Auth(HomePage, LoginPage)} />
+					<Route exact path="/" component={Auth(HomePage)} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/register" component={RegisterPage} />
-					<Route exact path="/fileManage" component={Auth(FileManagePage, LoginPage)} />
-					<Route exact path="/post/edit" component={Auth(PostEditPage, LoginPage)} />
-					<Route exact path="/post/views" component={Auth(PostViewPage, LoginPage)} />
+					<Route exact path="/fileManage" component={Auth(FileManagePage)} />
+					<Route exact path="/post/edit" component={Auth(PostEditPage)} />
+					<Route exact path="/post/views" component={Auth(PostViewPage)} />
+					<Route exact path="/chat" component={Auth(ChattingPage)} />
 				</Switch>
 			</div>
 		</Router>

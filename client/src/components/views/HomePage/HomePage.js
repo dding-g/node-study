@@ -11,7 +11,7 @@ function HomePage(props) {
 	};
 	
 	const onChatHandler = (event) => {
-	
+		props.history.push('/chat')
 	};
 	
 	const onLogoutHandler = (event) => {

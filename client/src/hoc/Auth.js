@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-export default function (SpecialComponent, LoginComponent) {
+export default function (SpecialComponent) {
 	function AuthCheck(props) {
 		var isAuth = false;
 		useEffect(() => {
