@@ -6,7 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
 import './css/signin.css'
 import './css/fileManage.css'
-
+import './css/postEditor.css'
+import './css/homePage.css'
 
 ReactDOM.render(
   <React.StrictMode>

@@ -117,12 +117,8 @@ app.post('/api/users/logout', auth, (req, res) => {
 
 // auth : 여기서는 미들웨어
 // 미들웨어는 client에서 request를 받고 callback function에 들어가기 전에 수행된다
-app.get('/api/users/auth', auth, (req, res) => {
-	res.status(200).json({
-		// _id : req.user._id,
-		isAuth: true,
-		email: req.user.email,
-	});
+app.get('/api/users/auth', (req, res) => {
+	auth(req, res, null)
 });
 
 app.get('/api/users/logout', auth, (req, res) => {
@@ -151,7 +147,7 @@ const upload = multer({
 	}),
 });
 
-app.post('/api/file/upload', auth, upload.single('file'), (req, res) => {
+app.post('/api/file/upload', upload.single('file'), (req, res) => {
 	console.log('Uploaded File Name : ', req.file.originalname)
 	
 	fileManage.uploadFile(req.file.originalname, req.body.email, (err, initList) => {
@@ -160,23 +156,31 @@ app.post('/api/file/upload', auth, upload.single('file'), (req, res) => {
 	});
 });
 
-app.get('/api/file/read-dir', auth, (req, res) => {
+app.get('/api/file/dir-all', (req, res) => {
 	fileManage.readDir((data) => {
-		if (err) res.json({ success: false, err });
-		console.log(data);
 		res.status(200).json({ success: true, data: data });
 	});
 });
 
-app.post('/api/file/read', auth, (req, res) => {
-	console.log(req);
-	var { email, path } = req.body;
-	var originPath = email.replace('@', '.') + path;
-	fileManage.readFile(originPath, (err, data) => {
+app.get('/api/file/read', (req, res) => {
+	console.log("PATH : ", req.query.path);
+
+	fileManage.readFile(req.query.path, (err, data) => {
+		console.log(err)
 		if (err) res.json({ success: false, err });
 		else {
 			console.log(data);
-			res.status(200).json({ success: true, data: data });
+			res.status(200).json({ success: true, post: data, title:'temporage' });
+		}
+	});
+});
+
+
+app.post('/api/file/edit-post', (req, res)=>{
+	fileManage.editFile(req.body.path, req.body.data, (err) => {
+		if(err) res.json({success:false, err})
+		else{
+			res.status(200).json({success:true})
 		}
 	});
 });

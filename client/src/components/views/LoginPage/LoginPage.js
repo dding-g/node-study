@@ -32,7 +32,7 @@ function LoginPage(props) {
 				alert("로그인 성공")
 				reactLocalStorage.set('email', response.data.email)
 				console.log(reactLocalStorage.get('email'))
-				props.history.push("/fileManage")
+				props.history.push("/")
 			}
         })
     }

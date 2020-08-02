@@ -1,0 +1,12 @@
+.post-body{
+	border:solid;
+	border-width:thin;
+	border-radius:10px;
+	margin:40px;
+	padding:50px;
+}
+
+.subject-font{
+	font-weight:bolder;
+	font-size:middle;
+}

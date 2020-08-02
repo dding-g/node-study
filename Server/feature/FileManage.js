@@ -31,10 +31,15 @@ const uploadFile = (fileName, email, callback) => {
 				return callback(err);
 			}
 			console.log(mkdirPath + ' : dir created');
-		});   
+		});
 
 		// 압축 해제
-		fs.createReadStream(path).pipe(unzip.Extract({ path: mkdirPath }));
+		fs.createReadStream(path).pipe(unzip.Extract({ path: mkdirPath }))
+		.on('finish', function(){
+			const tree = dirTree(mkdirPath);
+			console.log("tree : ", tree);
+			callback(null, tree);	
+		});
 
 		// 압축 해체 후 파일 삭제
 		fs.unlink(path, (err) => {
@@ -45,22 +50,27 @@ const uploadFile = (fileName, email, callback) => {
 			console.log(fileName + ' del complete!');
 		});
 		
-		const tree = dirTree(mkdirPath);
-		console.log("tree : ", tree);
-		callback(null, tree);
+		
 	}
 };
 
 // 초기 dir 반환
 const readDir = (callback) => {
-	callback();
+	callback(dirTree('uploads/'));
 };
 
 const readFile = (path, callback) => {
-	fs.readFile(basePath + path, 'utf-8', (err, data) => {
+	fs.readFile(path, 'utf8', (err, data) => {
 		if (err) return callback(err);
 		callback(null, data);
 	});
 };
 
-module.exports = { readDir, readFile, uploadFile };
+const editFile = (path, data, callback) => {
+	fs.writeFile(path, data, 'utf8', function(err){
+		if(err) return callback(err)
+		callback(null)
+	});
+}
+
+module.exports = { readDir, readFile, uploadFile, editFile};

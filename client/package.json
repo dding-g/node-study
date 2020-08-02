@@ -15,10 +15,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "reactjs-localstorage": "^1.0.1",
+    "reactjs-popup": "^1.5.0",
     "uuid": "^8.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

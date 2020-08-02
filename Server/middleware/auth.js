@@ -7,10 +7,12 @@ let auth = (req, res, next) => {
     
     if(sessionID === req.sessionID){
         console.log("SESSION OK!!!!!!!!!!!");
+		if(next === null)
+			return res.status(200).json({success:true, isAuth:true})
         next();
     }else{
         console.log("SESSION EXPIRE!! REDIRECT!!!!!!!!!!!!");
-        return res.redirect('/api/users/login');
+        return res.status(200).json({success:true, isAuth:false})
     }
     
 };

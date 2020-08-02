@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import LandingPage from './components/views/LandingPage/LandingPage';
+import HomePage from './components/views/HomePage/HomePage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import FileManagePage from './components/views/FileManagePage/FileManagePage';
+import PostEditPage from './components/views/FileManagePage/PostEditPage';
+import PostViewPage from './components/views/FileManagePage/PostViewPage';
+import Auth from './hoc/Auth';
 
 function App() {
 	return (
@@ -18,16 +21,17 @@ function App() {
           of them to render at a time
         */}
 				<Switch>
-					{
-			/*
+					{/*
           exact는 path가 정확하게 요청되었을때만 해당 페이지를 response한다
           예를들어 Landingpage의 exact를 빼게 되면 login과 register 모두
           / 를 가지고 있으므로 login, register로 요청해도 Landing페이지가 보여진다
           */}
-					<Route exact path="/" component={LandingPage} />
+					<Route exact path="/" component={Auth(HomePage, LoginPage)} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/register" component={RegisterPage} />
-					<Route exact path="/fileManage" component={FileManagePage} />
+					<Route exact path="/fileManage" component={Auth(FileManagePage, LoginPage)} />
+					<Route exact path="/post/edit" component={Auth(PostEditPage, LoginPage)} />
+					<Route exact path="/post/views" component={Auth(PostViewPage, LoginPage)} />
 				</Switch>
 			</div>
 		</Router>
