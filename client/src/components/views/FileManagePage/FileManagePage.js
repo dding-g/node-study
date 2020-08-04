@@ -3,6 +3,7 @@ import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
 import { Redirect, withRouter } from 'react-router-dom';
+import LoginBanner from '../../banners/LoginBanner/LoginBanner'
 
 function FileManagePage(props) {
 	// 초기 화면 모든 dir 보여줌
@@ -128,6 +129,8 @@ function FileManagePage(props) {
 	};
 
 	return (
+		<div className='full-page'>
+			<LoginBanner />
 		<div className="file-body">
 			<div className="container">
 				<div className="row">
@@ -164,6 +167,7 @@ function FileManagePage(props) {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 }

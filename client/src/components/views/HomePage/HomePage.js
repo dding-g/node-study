@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {reactLocalStorage} from 'reactjs-localstorage'
 import { withRouter } from 'react-router-dom';
+import LoginBanner from '../../banners/LoginBanner/LoginBanner'
 
 function HomePage(props) {
 	const [Email, setEmail] = useState(reactLocalStorage.get('email'));
@@ -15,10 +16,25 @@ function HomePage(props) {
 	};
 	
 	const onLogoutHandler = (event) => {
+		event.preventDefault();
 		
+		axios.get('/api/users/logout')
+		.then(response => {
+			console.log(response.data)
+			if(!response.data.success){
+				console.log(response.data.err);
+				alert('로그아웃 실패')
+			}else{
+				props.history.push('/login')
+				reactLocalStorage.clear();
+				alert('로그아웃 성공')
+			}
+		});
 	};
 
 	return (
+		<div className='full-page'>
+			<LoginBanner />
 		<div className='home-body'>
 			<div className="container">
 				<div><p className='subject-font'>환영합니다. {Email} 님!</p></div>
@@ -42,6 +58,7 @@ function HomePage(props) {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 }

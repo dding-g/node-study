@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const { User } = require('./model/User');
+const { Chat } = require('./model/Chat')
 const { auth } = require('./middleware/auth');
 
 // == const Use = require('./model/User').User 와 같음. ES6 문법.
@@ -67,7 +68,7 @@ app.post('/api/users/register', (req, res) => {
 				if (err) {
 					console.log(err);
 				}
-				console.log('uploads/' + email + ' directory is created');
+				console.log('uploads/' + req.body.email + ' directory is created');
 			});
 			return res.status(200).json({
 				success: true,
@@ -108,10 +109,10 @@ app.post('/api/users/login', (req, res) => {
 	});
 });
 
-app.post('/api/users/logout', auth, (req, res) => {
+app.get('/api/users/logout', (req, res) => {
 	req.session.destroy((err) => {
-		if (err) res.json({ logoutSuccess: false, err });
-		res.status(200).json({ logoutSuccess: true }).redirect('/');
+		if (err) res.json({ success: false, err });
+		res.status(200).json({ success: true }).redirect('/');
 	});
 });
 
@@ -119,16 +120,6 @@ app.post('/api/users/logout', auth, (req, res) => {
 // 미들웨어는 client에서 request를 받고 callback function에 들어가기 전에 수행된다
 app.get('/api/users/auth', (req, res) => {
 	auth(req, res, null)
-});
-
-app.get('/api/users/logout', auth, (req, res) => {
-	User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
-		if (err) return res.status(400).json({ success: false, err });
-
-		return res.status(200).send({
-			success: true,
-		});
-	});
 });
 
 // ===== File Management API =====
@@ -170,7 +161,8 @@ app.get('/api/file/read', (req, res) => {
 		if (err) res.json({ success: false, err });
 		else {
 			console.log(data);
-			res.status(200).json({ success: true, post: data, title:'temporage' });
+			var title = req.query.path.split('/')
+			res.status(200).json({ success: true, post: data, title: title[title.length-1]});
 		}
 	});
 });
@@ -184,3 +176,11 @@ app.post('/api/file/edit-post', (req, res)=>{
 		}
 	});
 });
+
+
+app.get('/api/chat/init-msg', (req,res) => {
+	Chat.find({}, (err, data)=>{
+		if(err) res.json({success:false, err})
+		res.json({success:true, data:data})
+	});
+})

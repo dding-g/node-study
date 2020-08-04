@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import HomePage from './components/views/HomePage/HomePage';
@@ -9,8 +9,10 @@ import PostEditPage from './components/views/FileManagePage/PostEditPage';
 import PostViewPage from './components/views/FileManagePage/PostViewPage';
 import ChattingPage from './components/views/ChattingPage/ChattingPage';
 import Auth from './hoc/Auth';
+import InitChat from './components/views/ChattingPage/ChattingInit'
 
 function App() {
+	
 	return (
 		<Router>
 			<div className="full-page">

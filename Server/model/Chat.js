@@ -5,10 +5,14 @@ const bodyParser = require('body-parser')
 const chatSchema = mongoose.Schema({
 	email : {
         type : String,
-        maxlength : 50,
-        unique : 1
+		maxlength : 50,
     },
-	target : String, //누구에게 보낼것인가. email or all
-	message : String,
-	datetime : Date.now
+	to : String,// to who. email or all
+	msg : String,
+	datetime : { type: Date, default: Date.now },
 });
+
+
+
+const Chat = mongoose.model('Chat', chatSchema);
+module.exports = {Chat};

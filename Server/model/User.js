@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser')
 const saltRounds = 10; // salt가 몇글자 인지를 나타냄
-// const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
     email : {
@@ -14,7 +13,8 @@ const userSchema = mongoose.Schema({
         type : String,
         minlength : 5,
         maxlength : 128
-    }
+    },
+	socketid : String
 });
 
 
@@ -50,28 +50,20 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 };
 
-// userSchema.methods.generateToken = function(cb){
-//     //jwt 사용해서 웹 토큰 생성
-//     const user = this;
-//     var token = jwt.sign(user._id.toHexString(), 'secretToken')
-//     user.token = token;
-//     cb(user);
-// };
+// userSchema.statics.findByToken = function(token, cb){
+//     var user = this;
 
-userSchema.statics.findByToken = function(token, cb){
-    var user = this;
-
-    //토큰을 decode
-    jwt.verify(token, 'secretToken', function(err, decoded){
-        //User._id, && token 값을 이용해 user를 찾는다.
-        //db에 찾은 데이터가 있으면 token이 일치한다는 이야기 auth OK
-        //없으면 auth No
-        user.findOne({"_id":decoded, "token":token}, function(err, userInfo){
-            if(err) return cb(err);
-            cb(null, userInfo);
-        });
-    })
-}
+//     //토큰을 decode
+//     jwt.verify(token, 'secretToken', function(err, decoded){
+//         //User._id, && token 값을 이용해 user를 찾는다.
+//         //db에 찾은 데이터가 있으면 token이 일치한다는 이야기 auth OK
+//         //없으면 auth No
+//         user.findOne({"_id":decoded, "token":token}, function(err, userInfo){
+//             if(err) return cb(err);
+//             cb(null, userInfo);
+//         });
+//     })
+// }
 
 const User = mongoose.model('User', userSchema);
 module.exports = {User};

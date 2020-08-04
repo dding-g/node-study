@@ -8,10 +8,18 @@ import './css/signin.css'
 import './css/fileManage.css'
 import './css/postEditor.css'
 import './css/homePage.css'
+import './css/chatting.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+		
+				
+    <App>
+			<div style={{display:'flex', margin:'10px'}}>
+				<p className='subject-font'>테스트</p>
+				
+			</div>
+			<hr/></App>
   </React.StrictMode>,
   document.getElementById('root') // index.html 에 root id 를 가진 div에 render 함
 ); 
