@@ -17,9 +17,8 @@ export default function (SpecialComponent) {
 				}
 			});
 		}, [])
-		
 		return (<SpecialComponent />)
 	}
-	
+
 	return AuthCheck
 }

@@ -15,7 +15,7 @@ function PostEditPage(props) {
 		axios.post('/api/file/edit-post', body)
 		.then(response => {
 			console.log("POST EDIT : ", response);
-			props.history.push('/fileManage');
+			props.history.push('/file-manage');
 		});
 	}
 	

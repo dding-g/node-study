@@ -32,7 +32,7 @@ function App() {
 					<Route exact path="/" component={Auth(HomePage)} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/register" component={RegisterPage} />
-					<Route exact path="/fileManage" component={Auth(FileManagePage)} />
+					<Route exact path="/file-manage" component={Auth(FileManagePage)} />
 					<Route exact path="/post/edit" component={Auth(PostEditPage)} />
 					<Route exact path="/post/views" component={Auth(PostViewPage)} />
 					<Route exact path="/chat" component={Auth(ChattingPage)} />

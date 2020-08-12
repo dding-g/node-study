@@ -50,20 +50,5 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 };
 
-// userSchema.statics.findByToken = function(token, cb){
-//     var user = this;
-
-//     //토큰을 decode
-//     jwt.verify(token, 'secretToken', function(err, decoded){
-//         //User._id, && token 값을 이용해 user를 찾는다.
-//         //db에 찾은 데이터가 있으면 token이 일치한다는 이야기 auth OK
-//         //없으면 auth No
-//         user.findOne({"_id":decoded, "token":token}, function(err, userInfo){
-//             if(err) return cb(err);
-//             cb(null, userInfo);
-//         });
-//     })
-// }
-
 const User = mongoose.model('User', userSchema);
 module.exports = {User};

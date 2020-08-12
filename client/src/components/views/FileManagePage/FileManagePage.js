@@ -56,6 +56,7 @@ function FileManagePage(props) {
 					console.log(myList);
 					ReactDOM.render('', document.getElementById('list-file'));
 					ReactDOM.render(myList, document.getElementById('list-file'));
+					alert('파일 업로드 완료')
 				}
 			});
 		} else {
@@ -94,7 +95,7 @@ function FileManagePage(props) {
 			var tempList = [];
 			for (var i = 0; i < children.length; i++) {
 				if (children[i].type === 'directory') {
-					listUp(children[i], list); // 부모 path를 key로 주어 자식들을 저장
+					listUp(children[i]); // 부모 path를 key로 주어 자식들을 저장
 				} else if (children[i].type === 'file') {
 					tempList.push(
 						React.createElement(

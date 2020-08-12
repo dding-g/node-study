@@ -8,7 +8,7 @@ function HomePage(props) {
 	const [Email, setEmail] = useState(reactLocalStorage.get('email'));
 	
 	const onFileManageHandler = (event) => {
-		props.history.push('/fileManage')
+		props.history.push('/file-manage')
 	};
 	
 	const onChatHandler = (event) => {

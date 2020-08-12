@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
 	});
 	
 	socket.on('message', (msg) => { //전체 채팅
+		console.log(msg)
 		let body = {
 			email : msg.email,
 			to : 'all',

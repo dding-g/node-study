@@ -7,7 +7,7 @@ import { ChatFeed, Message } from 'react-chat-ui';
 import axios from 'axios';
 import LoginBanner from '../../banners/LoginBanner/LoginBanner';
 
-const socketClient = socketio('http://15.164.230.150:53977', {
+const socketClient = socketio('http://13.209.84.7:50603', {
 	query: 'email=' + reactLocalStorage.get('email'),
 });
 
@@ -17,7 +17,7 @@ const socketClient = socketio('http://15.164.230.150:53977', {
 		2. server에서 DB에 저장된 socketid를 email로 조회한 후 client에 socketid 반환. 
 		   io.to(socketid).emit 으로 req를 보낸 client에게만 전달 (paramter : socketid)
 		3. client에서 socketid 를 받아 귓속말할 생대에게 io.to(socketid).emit 으로 message 전달
-		4. server에서 message를 받아 저장. 이때 to, target을 email로 저장
+		4. server에서 message를 받아 저장. 이때 to를 email로 저장
 */
 
 function ChattingPage(props) {
@@ -81,20 +81,6 @@ function ChattingPage(props) {
 		);
 	};
 
-	// // 페이지 실행 후 1번만 실행
-	// useEffect(() => {
-	// 	SetChat(
-	// 		Chat.concat([
-	// 			new Message({
-	// 				id: 1,
-	// 				message: 'MY',
-	// 			}), // Email
-	// 			new Message({ id: 0, message: 'ET' }),
-	// 		])
-	// 	);
-	// 	console.log(Chat);
-	// }, []);
-
 	useEffect(() => {
 		const scrollForm = document.getElementById('message-form');
 		scrollForm.scrollTop = scrollForm.scrollHeight;
@@ -117,8 +103,11 @@ function ChattingPage(props) {
 
 		// 귓속말 받았을때
 		socketClient.on('wispher', (receive) => {
-			receive.email = receive.email + ' 의 귓속말';
-			setMsgFn(receive);
+			let body = {
+				email: receive.email + " 에게 온 귓속말",
+				msg : receive.msg
+			}
+			setMsgFn(body);
 		});
 	});
 
@@ -170,6 +159,11 @@ function ChattingPage(props) {
 					<hr />
 					<p className="subject-font">
 						{Wisp ? WispTargetEmail + ' 에게 귓속말' : '전체 채팅 모드'}
+					</p>
+					<hr />
+					<p className="subject-font">
+						귓속말 모드 전환 : /r test@example.com <br/>
+						전체 모드 전환 : /all
 					</p>
 					<hr />
 					<div className="row" style={{ height: '70%' }}>

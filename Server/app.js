@@ -8,7 +8,6 @@ const { User } = require('./model/User');
 const { Chat } = require('./model/Chat')
 const { auth } = require('./middleware/auth');
 
-// == const Use = require('./model/User').User 와 같음. ES6 문법.
 const bodyParser = require('body-parser');
 const config = require('./config/key');
 const cookieParser = require('cookie-parser');
