@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 import socketio from 'socket.io-client';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { ChatFeed, Message } from 'react-chat-ui';
 import axios from 'axios';
-import LoginBanner from '../../banners/LoginBanner/LoginBanner';
 
 const socketClient = socketio('http://13.209.84.7:50603', {
 	query: 'email=' + reactLocalStorage.get('email'),
@@ -35,23 +33,23 @@ function ChattingPage(props) {
 				.then((response) => {
 					var init = [];
 					response.data.data.forEach(async (items) => {
-						
-						
 						/*
 							1. items.to 와 나의 email이 같으면 나에게 온 귓속말
 							2. items.to 와 나의 email이 다르고
 								1. item.email 과 나의 email이 같으면 내가 보낸 귓속말
 							3. 나머지는 전체 채팅
 						*/
-						
+
 						var chatEmailRenderText = '';
-						if(items.to !== 'all'){
-							if(items.to === reactLocalStorage.get('email')) chatEmailRenderText = items.email + " 에게 온 귓속말";
-							else if(items.email === reactLocalStorage.get('email')) chatEmailRenderText = items.to + " 에게 보낸 귓속말"
-						}else{
+						if (items.to !== 'all') {
+							if (items.to === reactLocalStorage.get('email'))
+								chatEmailRenderText = items.email + ' 에게 온 귓속말';
+							else if (items.email === reactLocalStorage.get('email'))
+								chatEmailRenderText = items.to + ' 에게 보낸 귓속말';
+						} else {
 							chatEmailRenderText = items.email; // 전체 체팅
 						}
-						
+
 						await init.push(
 							new Message({
 								id: 1,
@@ -104,9 +102,9 @@ function ChattingPage(props) {
 		// 귓속말 받았을때
 		socketClient.on('wispher', (receive) => {
 			let body = {
-				email: receive.email + " 에게 온 귓속말",
-				msg : receive.msg
-			}
+				email: receive.email + ' 에게 온 귓속말',
+				msg: receive.msg,
+			};
 			setMsgFn(body);
 		});
 	});
@@ -151,59 +149,56 @@ function ChattingPage(props) {
 	};
 
 	return (
-		<div className="full-page">
-			<LoginBanner />
-			<div className="chat-page-body">
-				<div className="chat-body">
-					<p className="subject-font">채팅</p>
-					<hr />
-					<p className="subject-font">
-						{Wisp ? WispTargetEmail + ' 에게 귓속말' : '전체 채팅 모드'}
-					</p>
-					<hr />
-					<p className="subject-font">
-						귓속말 모드 전환 : /r test@example.com <br/>
-						전체 모드 전환 : /all
-					</p>
-					<hr />
-					<div className="row" style={{ height: '70%' }}>
-						<div id="message-form" className="message-form">
-							<div id="msg-body">
-								<ChatFeed
-									messages={Chat} // Boolean: list of message objects
-									isTyping={false} // Boolean: is the recipient typing
-									hasInputField={false} // Boolean: use our input, or use your own
-									showSenderName // show the name of the user who sent the message
-									bubblesCentered={false} //Boolean should the bubbles be centered in the feed?
-									// JSON: Custom bubble styles
-									bubbleStyles={{
-										text: {
-											fontSize: 15,
-											color: '#FFFFFF',
-										},
-										chatbubble: {
-											borderRadius: 30,
-											padding: 15,
-										},
-									}}
-								/>
-							</div>
+		<div className="chat-page-body">
+			<div className="chat-body">
+				<p className="subject-font">채팅</p>
+				<hr />
+				<p className="subject-font">
+					{Wisp ? WispTargetEmail + ' 에게 귓속말' : '전체 채팅 모드'}
+				</p>
+				<hr />
+				<p className="subject-font">
+					귓속말 모드 전환 : /r test@example.com <br />
+					전체 모드 전환 : /all
+				</p>
+				<hr />
+				<div className="row" style={{ height: '70%' }}>
+					<div id="message-form" className="message-form">
+						<div id="msg-body">
+							<ChatFeed
+								messages={Chat} // Boolean: list of message objects
+								isTyping={false} // Boolean: is the recipient typing
+								hasInputField={false} // Boolean: use our input, or use your own
+								showSenderName // show the name of the user who sent the message
+								bubblesCentered={false} //Boolean should the bubbles be centered in the feed?
+								// JSON: Custom bubble styles
+								bubbleStyles={{
+									text: {
+										fontSize: 15,
+										color: '#FFFFFF',
+									},
+									chatbubble: {
+										borderRadius: 30,
+										padding: 15,
+									},
+								}}
+							/>
 						</div>
 					</div>
-					<div className="row" style={{ height: '10%' }}>
-						<div className="col-8 chat-box">
-							<textarea
-								id="message"
-								onChange={onChangeMsgHandler}
-								className="text-area-form"
-							></textarea>
-						</div>
-						<div className="col-4 chat-box">
-							<div className="send-btn-form">
-								<button className="btn btn-success" onClick={onSendBtnHandler}>
-									전송
-								</button>
-							</div>
+				</div>
+				<div className="row" style={{ height: '10%' }}>
+					<div className="col-8 chat-box">
+						<textarea
+							id="message"
+							onChange={onChangeMsgHandler}
+							className="text-area-form"
+						></textarea>
+					</div>
+					<div className="col-4 chat-box">
+						<div className="send-btn-form">
+							<button className="btn btn-success" onClick={onSendBtnHandler}>
+								전송
+							</button>
 						</div>
 					</div>
 				</div>

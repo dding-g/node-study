@@ -1,14 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
-import { Redirect, withRouter } from 'react-router-dom';
-import LoginBanner from '../../banners/LoginBanner/LoginBanner'
+import { withRouter } from 'react-router-dom';
 
 function FileManagePage(props) {
 	// 초기 화면 모든 dir 보여줌
 	axios.get('/api/file/dir-all').then((response) => {
-		console.log(response);
 		listUp(response.data.data);
 		var listPr = [];
 
@@ -21,8 +19,6 @@ function FileManagePage(props) {
 	});
 
 	const [File, setFile] = useState(null);
-	const [Email, setEmail] = useState(reactLocalStorage.get('email'));
-	const [List, setList] = useState('');
 	const ListParents = {};
 
 	const onFileUploadHandler = (event) => {
@@ -32,20 +28,14 @@ function FileManagePage(props) {
 			var formData = new FormData();
 
 			// 폴더 경로를 위해 @ 를 . 으로 치환
-			formData.append('email', Email.replace('@', '.'));
+			formData.append('email', reactLocalStorage.get('email').replace('@', '.'));
 			formData.append('file', File);
 
 			axios.post('/api/file/upload', formData).then((response) => {
 				if (!response.data.success) console.log(response);
 				else {
 					var list = response.data.data;
-					var list_dom;
-					// for(var i = 0 ; i < list.length ; i++){
-					// 	setList(List + <ul>list[i]</ul>)
-					// }
-					console.log('list : ', list);
 					listUp(list);
-					console.log('FINAL LIST : ', ListParents);
 					var listPr = [];
 
 					for (var key in ListParents) {
@@ -53,10 +43,9 @@ function FileManagePage(props) {
 					}
 
 					const myList = React.createElement('ul', { id: 'root' }, listPr);
-					console.log(myList);
 					ReactDOM.render('', document.getElementById('list-file'));
 					ReactDOM.render(myList, document.getElementById('list-file'));
-					alert('파일 업로드 완료')
+					alert('파일 업로드 완료');
 				}
 			});
 		} else {
@@ -65,7 +54,6 @@ function FileManagePage(props) {
 	};
 
 	const onReadFileHandler = (event) => {
-		console.log(event.currentTarget.id);
 		var readFilePath = event.currentTarget.id;
 		axios
 			.get('/api/file/read', {
@@ -74,9 +62,8 @@ function FileManagePage(props) {
 				},
 			})
 			.then((response) => {
-				// console.log(response);
 				return props.history.push({
-					pathname: '/post/views',
+					pathname: '/file/post',
 					state: {
 						title: response.data.title,
 						post: response.data.post,
@@ -108,9 +95,6 @@ function FileManagePage(props) {
 			}
 
 			if (tempList.length > 0) {
-				console.log('FIRST : ', ListParents);
-				console.log('Parents path : ', list.path);
-
 				var childElement = React.createElement('ul', null, tempList);
 				var parentsElement = React.createElement('ul', null, [
 					React.createElement('li', null, list.name),
@@ -130,8 +114,6 @@ function FileManagePage(props) {
 	};
 
 	return (
-		<div className='full-page'>
-			<LoginBanner />
 		<div className="file-body">
 			<div className="container">
 				<div className="row">
@@ -168,7 +150,6 @@ function FileManagePage(props) {
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	);
 }

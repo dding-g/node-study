@@ -4,7 +4,6 @@ import axios from 'axios';
 
 export default function (SpecialComponent) {
 	function AuthCheck(props) {
-		var isAuth = false;
 		useEffect(() => {
 			axios.get('/api/users/auth').then((response) => {
 				console.log('RESPONSE : ', response);

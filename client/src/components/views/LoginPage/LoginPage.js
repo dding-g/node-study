@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { Redirect, useHistory, useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
-import LoginBanner from '../../banners/LoginBanner/LoginBanner';
-// import FileManagePage from '../components/views/FileManagePage/FileManagePage';
 
 function LoginPage(props) {
 	const [Email, setEmail] = useState('');
 	const [Password, setPassword] = useState('');
 
+	
 	const onEmailHandler = (event) => {
 		setEmail(event.currentTarget.value);
 	};
@@ -35,14 +33,7 @@ function LoginPage(props) {
 		});
 	};
 
-	// const test = useEffect(() => {
-	//     axios.get('/api/hello')
-	//     .then(response => {console.log(response.data)})
-	// })
-
 	return (
-		<div className='full-page'>
-			<LoginBanner />
 			<div className="text-center">
 				<form className="form-signin" onSubmit={onSubmitHandler}>
 					<h1 className="h3 mb-3 font-weight-normal">로그인</h1>
@@ -76,7 +67,6 @@ function LoginPage(props) {
 					</button>
 				</form>
 			</div>
-		</div>
 	);
 }
 
