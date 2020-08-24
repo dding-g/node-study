@@ -79,13 +79,12 @@ function FileManagePage(props) {
 		// children이 있다는건 하위 directory 또는 file 이 있다는 뜻.
 		if (list.children.length > 0) {
 			var children = list.children;
-			var tempList = [];
+			var tempList = [];			
 			for (var i = 0; i < children.length; i++) {
 				if (children[i].type === 'directory') {
 					listUp(children[i]); // 부모 path를 key로 주어 자식들을 저장
 				} else if (children[i].type === 'file') {
 					tempList.push(
-						
 						// TODO : CreateElement 사용 X, List, key doc 참고
 						React.createElement(
 							'li',

@@ -16,7 +16,8 @@
 
 #### TODO
 
-*	[ ] PostContainer.js 와 PostPage.js 합치기
+*	[x] PostContainer.js 와 PostPage.js 합치기
 -	[ ] FileManagePage.js 에서 ReactDOM.render() 삭제
+	-	[ ] Component를 list에 push할 필요 없음. React document list,key 참고
 	-	[ ] React.createElement() 사용 UX
 -	[ ] LoginBanner.js 다시 구성. 최상위에서 props 으로 email 관리
