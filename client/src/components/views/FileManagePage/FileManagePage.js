@@ -43,8 +43,8 @@ function FileManagePage(props) {
 					}
 
 					const myList = React.createElement('ul', { id: 'root' }, listPr);
-					ReactDOM.render('', document.getElementById('list-file'));
-					ReactDOM.render(myList, document.getElementById('list-file'));
+					ReactDOM.render('', document.getElementById('list-file')); // TODO : render 여러번 X
+					ReactDOM.render(myList, document.getElementById('list-file')); 
 					alert('파일 업로드 완료');
 				}
 			});
@@ -85,6 +85,8 @@ function FileManagePage(props) {
 					listUp(children[i]); // 부모 path를 key로 주어 자식들을 저장
 				} else if (children[i].type === 'file') {
 					tempList.push(
+						
+						// TODO : CreateElement 사용 X, List, key doc 참고
 						React.createElement(
 							'li',
 							{ id: children[i].path, onClick: onReadFileHandler },

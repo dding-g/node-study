@@ -5,7 +5,7 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { ChatFeed, Message } from 'react-chat-ui';
 import axios from 'axios';
 
-const socketClient = socketio('http://13.209.84.7:50603', {
+const socketClient = socketio('http://3.35.10.124:52590', {
 	query: 'email=' + reactLocalStorage.get('email'),
 });
 
@@ -122,6 +122,7 @@ function ChattingPage(props) {
 			SetWisp(false);
 		} else if (Msg.substr(0, 3) === '/r ') {
 			// 귓속말 모드
+			console.log('MSG : ', Msg);
 			socketClient.emit('wispSckIDreq', {
 				email: Msg.substr(3, Msg.length),
 			});
@@ -175,7 +176,7 @@ function ChattingPage(props) {
 								bubbleStyles={{
 									text: {
 										fontSize: 15,
-										color: '#FFFFFF',
+										color: '#000000',
 									},
 									chatbubble: {
 										borderRadius: 30,

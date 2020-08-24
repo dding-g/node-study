@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import PostContainer from './container/PostContainer';
 import axios from 'axios';
 
+// TODO : Container 와 합치기.
+// props 넘길때 object 넘기는건 권장 X
 function PostViewPage(props) {
 	const [IsEdit, setIsEdit] = useState(false);
 
@@ -20,7 +22,7 @@ function PostViewPage(props) {
 			data: document.getElementById('post').value,
 		};
 		axios.post('/api/file/edit-post', body).then((response) => {
-			props.history.push('/file-manage');
+			props.history.push('/file');
 		});
 	};
 
