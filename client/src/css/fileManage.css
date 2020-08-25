@@ -24,8 +24,19 @@
 	border-width:thin;
 	padding:20px;
 	text-align:left;
+	align-items:left;
 	float:left;
 	width:100%;
 	height:100%;
 	overflow-y: scroll;
+}
+
+.list-forder{
+	color:#228B22;
+	cursor:default;
+}
+
+.list-file{
+	color:blue;
+	cursor:pointer;
 }

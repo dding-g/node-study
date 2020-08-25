@@ -15,7 +15,7 @@ const basePath = 'uploads/';
 const unzip = require('unzip');
 const dirTree = require("directory-tree");
 
-const uploadFile = (fileName, email, callback) => {
+const uploadFile = async (fileName, email, callback) => {
 
 	//압출 파일인지 확인
 	if (/\.(zip|tar)$/i.test(fileName)) {
@@ -25,7 +25,7 @@ const uploadFile = (fileName, email, callback) => {
 		var path = basePath + email + '/' + fileName;
 
 		// 압축 해제된 파일을 저장하기 위한 DIR 생성
-		fs.mkdir(mkdirPath, { recursive: true }, (err) => {
+		await fs.mkdir(mkdirPath, { recursive: true }, (err) => {
 			if (err) {
 				console.log(err);
 				return callback(err);
@@ -34,7 +34,7 @@ const uploadFile = (fileName, email, callback) => {
 		});
 
 		// 압축 해제
-		fs.createReadStream(path).pipe(unzip.Extract({ path: mkdirPath }))
+		await fs.createReadStream(path).pipe(unzip.Extract({ path: mkdirPath }))
 		.on('finish', function(){
 			const tree = dirTree(mkdirPath);
 			console.log("tree : ", tree);
@@ -42,7 +42,7 @@ const uploadFile = (fileName, email, callback) => {
 		});
 
 		// 압축 해체 후 파일 삭제
-		fs.unlink(path, (err) => {
+		await fs.unlink(path, (err) => {
 			if (err) {
 				console.log(err);
 				return callback(err);

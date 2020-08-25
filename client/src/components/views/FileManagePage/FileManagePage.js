@@ -1,50 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router-dom';
 
 function FileManagePage(props) {
-	// 초기 화면 모든 dir 보여줌
-	axios.get('/api/file/dir-all').then((response) => {
-		listUp(response.data.data);
-		var listPr = [];
-
-		for (var key in ListParents) {
-			listPr.push(ListParents[key]);
-		}
-
-		const myList = React.createElement('ul', { id: 'root' }, listPr);
-		ReactDOM.render(myList, document.getElementById('list-file'));
-	});
-
 	const [File, setFile] = useState(null);
-	const ListParents = {};
+	let ListParents = [];
+	const [FileList, setFileList] = useState();
+
+	useEffect(() => {
+		// 초기 화면 모든 dir 보여줌
+		axios.get('/api/file/dir-all').then((response) => {
+			console.log(response);
+			setFileList(listUp(response.data.data));
+		});
+	}, []);
 
 	const onFileUploadHandler = (event) => {
 		event.preventDefault();
 
 		if (File != null) {
-			var formData = new FormData();
+			let formData = new FormData();
 
 			// 폴더 경로를 위해 @ 를 . 으로 치환
 			formData.append('email', reactLocalStorage.get('email').replace('@', '.'));
 			formData.append('file', File);
 
 			axios.post('/api/file/upload', formData).then((response) => {
-				if (!response.data.success) console.log(response);
+				if (!response.data.success) console.log(response.data.err);
 				else {
-					var list = response.data.data;
-					listUp(list);
-					var listPr = [];
-
-					for (var key in ListParents) {
-						listPr.push(ListParents[key]);
-					}
-
-					const myList = React.createElement('ul', { id: 'root' }, listPr);
-					ReactDOM.render('', document.getElementById('list-file')); // TODO : render 여러번 X
-					ReactDOM.render(myList, document.getElementById('list-file')); 
+					setFileList(listUp(response.data.data));
 					alert('파일 업로드 완료');
 				}
 			});
@@ -54,7 +40,7 @@ function FileManagePage(props) {
 	};
 
 	const onReadFileHandler = (event) => {
-		var readFilePath = event.currentTarget.id;
+		let readFilePath = event.currentTarget.id;
 		axios
 			.get('/api/file/read', {
 				params: {
@@ -74,35 +60,29 @@ function FileManagePage(props) {
 	};
 
 	const listUp = (list) => {
-		ListParents[list.name] = []; // 탐색 깊이 별로 정리할 배열 추가
-
 		// children이 있다는건 하위 directory 또는 file 이 있다는 뜻.
 		if (list.children.length > 0) {
-			var children = list.children;
-			var tempList = [];			
-			for (var i = 0; i < children.length; i++) {
-				if (children[i].type === 'directory') {
-					listUp(children[i]); // 부모 path를 key로 주어 자식들을 저장
-				} else if (children[i].type === 'file') {
-					tempList.push(
-						// TODO : CreateElement 사용 X, List, key doc 참고
-						React.createElement(
-							'li',
-							{ id: children[i].path, onClick: onReadFileHandler },
-							children[i].name
-						)
+			let children = list.children;
+			return children.map((child) => {
+				if (child.type === 'directory') {
+					return (
+						<ul>
+							<li key={child.id} className="list-forder">
+								{child.name}
+							</li>
+							{listUp(child)}
+						</ul>
+					);
+				} else if (child.type === 'file') {
+					return (
+						<ul>
+							<li id={child.path} className="list-file" onClick={onReadFileHandler}>
+								{child.name}
+							</li>
+						</ul>
 					);
 				}
-			}
-
-			if (tempList.length > 0) {
-				var childElement = React.createElement('ul', null, tempList);
-				var parentsElement = React.createElement('ul', null, [
-					React.createElement('li', null, list.name),
-					childElement,
-				]);
-				ListParents[list.name] = parentsElement;
-			}
+			});
 		}
 	};
 
@@ -146,7 +126,9 @@ function FileManagePage(props) {
 								<p>파일 리스트</p>
 								<hr />
 							</div>
-							<div id="list-file" className="list-form"></div>
+							<div id="list-file" className="list-form">
+								<ul>{FileList}</ul>
+							</div>
 						</div>
 					</div>
 				</div>
