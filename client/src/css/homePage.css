@@ -5,6 +5,8 @@
  	align-items: center;
 	background-color: #f5f5f5;
 	text-align:center;
+	margin: auto;
+	margin-top: 20px;
 }
 
 .home-btn-col{

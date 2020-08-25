@@ -8,19 +8,20 @@
 .chat-page-body{
 	display:flex;
 	align-items:center;
-	height:90%;
+	margin:20px;
 }
 
 .chat-body{
 	margin: auto;
-	height: 90%;
+	margin-top: 20px;
+	height: 40%;
 }
 .message-form{
 	display:flex;
 	text-align:left;
 	padding:10px;
 	background-color:#222222;
-	height:100%;
+	height:32em;
 	overflow-y:scroll;
 	width:100%;
 }

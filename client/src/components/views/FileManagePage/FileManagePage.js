@@ -3,6 +3,7 @@ import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router-dom';
+import LoginBanner from '../../banners/LoginBanner/LoginBanner';
 
 function FileManagePage(props) {
 	const [File, setFile] = useState(null);
@@ -95,39 +96,43 @@ function FileManagePage(props) {
 	};
 
 	return (
-		<div className="file-body">
-			<div className="container">
-				<div className="row">
-					<div className="col-sm">
-						<div className="file-form">
-							<form onSubmit={onFileUploadHandler} encType="multipart/form-data">
-								<input
-									type="file"
-									accept=".zip, .tar"
-									onChange={onFileChangeHaldler}
-								/>
-								<button
-									type="submit"
-									className="btn btn-outline-success"
-									style={{ marginTop: '30px' }}
-								>
-									파일 업로드
-								</button>
-							</form>
-						</div>
-					</div>
+		<div>
+			<LoginBanner />
 
-					<div className="col-sm">
-						<div style={{ height: '300px' }}>
-							<div
-								className="subject-font"
-								style={{ width: '100%', textAlign: 'left' }}
-							>
-								<p>파일 리스트</p>
-								<hr />
+			<div className="file-body">
+				<div className="container">
+					<div className="row">
+						<div className="col-sm">
+							<div className="file-form">
+								<form onSubmit={onFileUploadHandler} encType="multipart/form-data">
+									<input
+										type="file"
+										accept=".zip, .tar"
+										onChange={onFileChangeHaldler}
+									/>
+									<button
+										type="submit"
+										className="btn btn-outline-success"
+										style={{ marginTop: '30px' }}
+									>
+										파일 업로드
+									</button>
+								</form>
 							</div>
-							<div id="list-file" className="list-form">
-								<ul>{FileList}</ul>
+						</div>
+
+						<div className="col-sm">
+							<div style={{ height: '300px' }}>
+								<div
+									className="subject-font"
+									style={{ width: '100%', textAlign: 'left' }}
+								>
+									<p>파일 리스트</p>
+									<hr />
+								</div>
+								<div id="list-file" className="list-form">
+									<ul>{FileList}</ul>
+								</div>
 							</div>
 						</div>
 					</div>

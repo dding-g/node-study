@@ -4,6 +4,7 @@ import socketio from 'socket.io-client';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { ChatFeed, Message } from 'react-chat-ui';
 import axios from 'axios';
+import LoginBanner from '../../banners/LoginBanner/LoginBanner';
 
 const socketClient = socketio('http://3.35.10.124:52590', {
 	query: 'email=' + reactLocalStorage.get('email'),
@@ -150,56 +151,66 @@ function ChattingPage(props) {
 	};
 
 	return (
-		<div className="chat-page-body">
-			<div className="chat-body">
-				<p className="subject-font">채팅</p>
-				<hr />
-				<p className="subject-font">
-					{Wisp ? WispTargetEmail + ' 에게 귓속말' : '전체 채팅 모드'}
-				</p>
-				<hr />
-				<p className="subject-font">
-					귓속말 모드 전환 : /r test@example.com <br />
-					전체 모드 전환 : /all
-				</p>
-				<hr />
-				<div className="row" style={{ height: '70%' }}>
-					<div id="message-form" className="message-form">
-						<div id="msg-body">
-							<ChatFeed
-								messages={Chat} // Boolean: list of message objects
-								isTyping={false} // Boolean: is the recipient typing
-								hasInputField={false} // Boolean: use our input, or use your own
-								showSenderName // show the name of the user who sent the message
-								bubblesCentered={false} //Boolean should the bubbles be centered in the feed?
-								// JSON: Custom bubble styles
-								bubbleStyles={{
-									text: {
-										fontSize: 15,
-										color: '#000000',
-									},
-									chatbubble: {
-										borderRadius: 30,
-										padding: 15,
-									},
-								}}
-							/>
-						</div>
-					</div>
-				</div>
-				<div className="row" style={{ height: '10%' }}>
-					<div className="col-8 chat-box">
-						<textarea
-							id="message"
-							onChange={onChangeMsgHandler}
-							className="text-area-form"
-						></textarea>
-					</div>
-					<div className="col-4 chat-box">
-						<div className="send-btn-form">
-							<button className="btn btn-success" onClick={onSendBtnHandler}>
-								전송
-							</button>
+		<div>
+			<LoginBanner />
+			<div className="container">
+				<div className="row">
+					<div className="chat-body">
+						<p className="subject-font">채팅</p>
+						<hr />
+						<p className="subject-font">
+							{Wisp ? WispTargetEmail + ' 에게 귓속말' : '전체 채팅 모드'}
+						</p>
+						<hr />
+						<p className="subject-font">
+							귓속말 모드 전환 : /r test@example.com <br />
+							전체 모드 전환 : /all
+						</p>
+						<hr />
+						<div className="container">
+							<div className="row" style={{ height: '70%'}}>
+								<div id="message-form" className="message-form">
+									<div id="msg-body">
+										<ChatFeed
+											messages={Chat} // Boolean: list of message objects
+											isTyping={false} // Boolean: is the recipient typing
+											hasInputField={false} // Boolean: use our input, or use your own
+											showSenderName // show the name of the user who sent the message
+											bubblesCentered={false} //Boolean should the bubbles be centered in the feed?
+											// JSON: Custom bubble styles
+											bubbleStyles={{
+												text: {
+													fontSize: 15,
+													color: '#000000',
+												},
+												chatbubble: {
+													borderRadius: 30,
+													padding: 15,
+												},
+											}}
+										/>
+									</div>
+								</div>
+							</div>
+							<div className="row" style={{ height: '20%' }}>
+								<div className="col-8 chat-box">
+									<textarea
+										id="message"
+										onChange={onChangeMsgHandler}
+										className="text-area-form"
+									></textarea>
+								</div>
+								<div className="col-4 chat-box">
+									<div className="send-btn-form">
+										<button
+											className="btn btn-success"
+											onClick={onSendBtnHandler}
+										>
+											전송
+										</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

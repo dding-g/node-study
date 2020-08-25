@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from 'axios';
+import LoginBanner from '../../banners/LoginBanner/LoginBanner';
+
 
 function LoginPage(props) {
 	const [Email, setEmail] = useState('');
 	const [Password, setPassword] = useState('');
 
-	
 	const onEmailHandler = (event) => {
 		setEmail(event.currentTarget.value);
 	};
@@ -34,6 +35,8 @@ function LoginPage(props) {
 	};
 
 	return (
+		<div>
+			<LoginBanner />
 			<div className="text-center">
 				<form className="form-signin" onSubmit={onSubmitHandler}>
 					<h1 className="h3 mb-3 font-weight-normal">로그인</h1>
@@ -67,6 +70,7 @@ function LoginPage(props) {
 					</button>
 				</form>
 			</div>
+		</div>
 	);
 }
 

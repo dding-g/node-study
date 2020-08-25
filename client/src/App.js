@@ -8,12 +8,10 @@ import FileManagePage from './components/views/FileManagePage/FileManagePage';
 import PostPage from './components/views/FileManagePage/PostPage';
 import ChattingPage from './components/views/ChattingPage/ChattingPage';
 import Auth from './hoc/Auth';
-import LoginBanner from './components/banners/LoginBanner/LoginBanner';
 
 function App() {
 	return (
 		<Router>
-			<LoginBanner />
 			<Switch>
 				<Route exact path="/" component={Auth(HomePage)} />
 				<Route exact path="/login" component={LoginPage} />
