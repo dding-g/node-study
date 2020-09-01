@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import LoginBanner from '../../banners/LoginBanner/LoginBanner';
 
+// TODO : 전체가 왜 다시 렌더링??
 function RegisterPage(props) {
 	const [Email, setEmail] = useState('');
 	const [CheckEmail, setCheckEmail] = useState(false);

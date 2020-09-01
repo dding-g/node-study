@@ -22,3 +22,5 @@
 	-	[x] React.createElement() 사용 UX
 	-	ReactDOM.render 나 createElement()를 사용하지 않고 JSX만으로 다시 구현. 
 -	[x] LoginBanner.js 다시 구성. 최상위에서 props 으로 email 관리
+-   [ ] Chatting, Login 페이지 input 수정할때 왜 전체가 다시 렌더링 되는가?
+-	[ ] ChattingPage 에서 https 로 변경해도 채팅이 가능하도록 하기

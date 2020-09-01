@@ -6,7 +6,8 @@ import { ChatFeed, Message } from 'react-chat-ui';
 import axios from 'axios';
 import LoginBanner from '../../banners/LoginBanner/LoginBanner';
 
-const socketClient = socketio('http://3.35.10.124:52590', {
+// TODO : https 로 될 수 있게
+const socketClient = socketio('http://15.164.212.146:54637', {
 	query: 'email=' + reactLocalStorage.get('email'),
 });
 
