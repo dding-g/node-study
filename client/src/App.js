@@ -14,6 +14,8 @@ function App() {
 		<Router>
 			<Switch>
 
+				
+
 
 
 				<Route exact path="/" component={Auth(HomePage)} />
