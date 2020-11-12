@@ -16,6 +16,12 @@ function App() {
 				<Route exact path="/" component={Auth(HomePage)} />
 				<Route exact path="/login" component={LoginPage} />
 				<Route exact path="/register" component={RegisterPage} />
+
+
+
+
+
+				<Route exact path="/file/test/intellij" component={Auth(FileManagePage)} />
 				<Route exact path="/file" component={Auth(FileManagePage)} />
 				<Route exact path="/file/post" component={Auth(PostPage)} />
 				<Route exact path="/chat" component={Auth(ChattingPage)} />
