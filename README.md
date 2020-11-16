@@ -15,7 +15,7 @@
 	- [x] 로그인 후 새로고침을 해야 Navbar가 refresh 되는 문제가 있음
 		- 각 Component에 LoginBanner 컴포넌트를 추가는 방식으로 진행
 #### TODO
-
+ 
 *	[x] PostContainer.js 와 PostPage.js 합치기
 -	[x] FileManagePage.js 에서 ReactDOM.render() 삭제
 	-	[x] Component를 list에 push할 필요 없음. React document list,key 참고
