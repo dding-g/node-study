@@ -1,6 +1,6 @@
 # Node.js, React Study
 
-## 사용 스택
+## 사용 스택 
 *	Backend : Node.js
 * 	Frontend : React.js
 * 	DataBase : MongoDBs
