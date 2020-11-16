@@ -2,7 +2,7 @@
 
 ## 사용 스택 
 *	Backend : Node.js
-* 	Frontend : React.js
+* 	Frontend : React.js 
 * 	DataBase : MongoDBs
 
 ## 내용
