@@ -8,7 +8,7 @@
 ## 내용
 
 ### React 모듈화
-#### Post Page 모듈화
+#### Post Page 모듈화 asvasdvasdv
 *	PostViewPage, PostEditPage의 공통 부분들을 PostCotainer로 모듈화.
 #### UI, UX
 *	로그아웃 버튼 위치를 홈페이지에서 NavBar로 옮김
