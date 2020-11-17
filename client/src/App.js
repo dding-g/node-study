@@ -11,8 +11,6 @@ import Auth from './hoc/Auth';
 
 function App() {
 	return (
-
-		
 		<Router>
 			<Switch>
 				<Route exact path="/" component={Auth(HomePage)} />
