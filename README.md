@@ -14,7 +14,7 @@
 *	로그아웃 버튼 위치를 홈페이지에서 NavBar로 옮김
 	- [x] 로그인 후 새로고침을 해야 Navbar가 refresh 되는 문제가 있음
 		- 각 Component에 LoginBanner 컴포넌트를 추가는 방식으로 진행
-#### TODO
+#### TODO 
  
 *	[x] PostContainer.js 와 PostPage.js 합치기
 -	[x] FileManagePage.js 에서 ReactDOM.render() 삭제
